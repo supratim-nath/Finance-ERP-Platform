@@ -13,6 +13,10 @@ from predictor import FinancePredictor
 
 app = FastAPI()
 
+@app.get('/')
+async def root():
+    return {'status': 'ok', 'service': 'Finance ERP Platform API', 'version': '2.0'}
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
