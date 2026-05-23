@@ -1,5 +1,7 @@
 'use client';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useFinanceStore } from '../../store/useFinanceStore';
 import { Send, Sparkles, Trash2, ArrowRight, HelpCircle, X } from 'lucide-react';
@@ -31,13 +33,13 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ isOpen, onClose })
 
   const refreshState = async () => {
     try {
-      const dataRes = await fetch('http://localhost:8000/data');
+      const dataRes = await fetch(`${API_URL}/data`);
       if (dataRes.ok) setData(await dataRes.json());
       
-      const metricsRes = await fetch('http://localhost:8000/metrics');
+      const metricsRes = await fetch(`${API_URL}/metrics`);
       if (metricsRes.ok) setMetrics(await metricsRes.json());
 
-      const issuesRes = await fetch('http://localhost:8000/quality-issues');
+      const issuesRes = await fetch(`${API_URL}/quality-issues`);
       if (issuesRes.ok) setQualityIssues(await issuesRes.json());
     } catch (e) {
       console.error(e);
@@ -55,7 +57,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ isOpen, onClose })
 
     try {
       // 2. Call FastAPI chat intelligence engine
-      const chatRes = await fetch('http://localhost:8000/ai/chat', {
+      const chatRes = await fetch(`${API_URL}/ai/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: textToSend })
@@ -72,7 +74,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ isOpen, onClose })
 
       // 4. Check if an actionable transaction modifier tool was triggered!
       if (chatResult.action) {
-        const actionRes = await fetch('http://localhost:8000/ai/action', {
+        const actionRes = await fetch(`${API_URL}/ai/action`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -104,7 +106,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ isOpen, onClose })
       console.error(e);
       addChatMessage({
         sender: 'copilot',
-        text: '❌ Could not establish connection to the AI Co-Pilot control plane. Please verify that FastAPI is running on `http://localhost:8000`.'
+        text: `❌ Could not establish connection to the AI Co-Pilot control plane. Please verify that FastAPI is running on \`${API_URL}\`.`
       });
     } finally {
       setLoading(false);

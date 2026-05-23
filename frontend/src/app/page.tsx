@@ -1,5 +1,7 @@
 'use client';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
 import React, { useEffect, useState, useCallback } from 'react';
 import { useFinanceStore } from '../store/useFinanceStore';
 import { StitchTable } from '../components/ui/StitchTable';
@@ -161,15 +163,15 @@ export default function FinanceApp() {
     setLoading(true);
     try {
       const [dataR, metrR, issR, predR, cfR, anR, brR, insR, varR] = await Promise.all([
-        fetch('http://localhost:8000/data'),
-        fetch('http://localhost:8000/metrics'),
-        fetch('http://localhost:8000/quality-issues'),
-        fetch('http://localhost:8000/predict'),
-        fetch('http://localhost:8000/cashflow'),
-        fetch('http://localhost:8000/anomalies'),
-        fetch('http://localhost:8000/expense-breakdown'),
-        fetch('http://localhost:8000/insights'),
-        fetch('http://localhost:8000/variance'),
+        fetch(`${API_URL}/data`),
+        fetch(`${API_URL}/metrics`),
+        fetch(`${API_URL}/quality-issues`),
+        fetch(`${API_URL}/predict`),
+        fetch(`${API_URL}/cashflow`),
+        fetch(`${API_URL}/anomalies`),
+        fetch(`${API_URL}/expense-breakdown`),
+        fetch(`${API_URL}/insights`),
+        fetch(`${API_URL}/variance`),
       ]);
 
       const safe = async (r: Response) => { try { const j = await r.json(); return j.error ? null : j; } catch { return null; } };
@@ -210,7 +212,7 @@ export default function FinanceApp() {
         setLoading(false);
         return;
       }
-      const res = await fetch('http://localhost:8000/ai/action', {
+      const res = await fetch(`${API_URL}/ai/action`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tool, params })
@@ -243,7 +245,7 @@ export default function FinanceApp() {
     // 2. Wipe the backend and clear the local store state to ensure a pristine start
     const cleanReset = async () => {
       try {
-        await fetch('http://localhost:8000/reset', { method: 'POST' });
+        await fetch(`${API_URL}/reset`, { method: 'POST' });
       } catch (e) {
         console.error('Failed to reset backend database:', e);
       }
@@ -272,7 +274,7 @@ export default function FinanceApp() {
     const fd = new FormData();
     fd.append('file', file);
     try {
-      const res = await fetch('http://localhost:8000/upload', { method: 'POST', body: fd });
+      const res = await fetch(`${API_URL}/upload`, { method: 'POST', body: fd });
       if (!res.ok) { const j = await res.json().catch(() => ({})); throw new Error(j?.detail || 'Upload failed'); }
       const result = await res.json();
       setUploadFeedback(`Validated ${result.row_count} transaction rows.`);
