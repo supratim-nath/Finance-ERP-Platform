@@ -2,7 +2,7 @@
 node_modules/
 jspm_packages/
 web_modules/
-
+.env.production/
 # Next.js build and cache
 .next/
 out/
