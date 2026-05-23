@@ -1,0 +1,67 @@
+txn_date,vendor,amount_raw,category,department
+2026-04-01,AWS Cloud Infrastructure,USD 12000,Cloud Infrastructure,Engineering
+2026-04-02,Google Workspace,USD 1500,SaaS Subscriptions,Product
+2026-04-03,Vercel Host Services,USD 650,SaaS Subscriptions,Engineering
+2026-04-03,Netflix Personal,USD 15.99,Personal Expense,Marketing
+2026-04-04,Starbucks Team Meals,INR 4500,Meals & Catering,Sales
+2026-04-05,HDFC Business Banking,INR 125000,Finance & Banking,Finance
+2026-04-06,Dell India Hardware,INR 450000,Hardware & Equipment,Engineering
+2026-04-06,Dell India Hardware,INR 450000,Hardware & Equipment,Engineering
+2026-04-07,Slack Communication,USD 1800,SaaS Subscriptions,Product
+2026-04-08,Uber Business Travel,INR 3400,Travel & Transport,Sales
+2026-04-09,Github Team Accounts,USD 800,SaaS Subscriptions,Engineering
+2026-04-10,Amazon Retail Purchase,INR 28000,Personal Expense,Customer Success
+2026-04-11,AWS Cloud Infrastructure,USD 12000,Cloud Infrastructure,Engineering
+2026-04-12,Vercel Host Services,USD 650,SaaS Subscriptions,Engineering
+2026-04-13,Figma Design Licenses,USD 1400,SaaS Subscriptions,Design
+2026-04-14,Hotel Grand Residency,INR 85000,Travel & Transport,Business Development
+2026-04-15,Team Lunch Buffet,INR 15600,Meals & Catering,Product
+2026-04-16,Zoom Video Pro,USD 350,SaaS Subscriptions,Operations
+2026-04-17,Swiggy Catering Services,INR 9800,Meals & Catering,Data Science
+2026-04-18,Highlands Coffee Personal,INR 380,Personal Expense,Marketing
+2026-04-19,Stripe Payment Processing,USD 2400,Finance & Banking,Finance
+2026-04-20,Microsoft Software Sub,USD 4500,SaaS Subscriptions,Engineering
+2026-04-20,Microsoft Software Sub,USD 4500,SaaS Subscriptions,Engineering
+2026-04-21,OpenAI API Tokens,USD 6500,Cloud Infrastructure,Data Science
+2026-04-22,WeWork Shared Desks,INR 180000,Travel & Transport,Operations
+2026-04-23,Indigo Airlines Travel,INR 35000,Travel & Transport,Sales
+2026-04-24,Spotify Personal,INR 179,Personal Expense,Product
+2026-04-25,BlueTokai Coffee Roasters,INR 1250,Meals & Catering,Design
+2026-04-26,Google Cloud Platform,USD 9500,Cloud Infrastructure,Engineering
+2026-04-27,Apple Store Laptops,INR 780000,Hardware & Equipment,Engineering
+2026-04-28,Uber Business Travel,INR 1200,Travel & Transport,Sales
+2026-04-29,Salesforce Enterprise CRM,USD 11000,SaaS Subscriptions,Sales
+2026-04-30,Law Office Consultants,INR 350000,Miscellaneous,Legal
+2026-05-01,AWS Cloud Infrastructure,USD 13500,Cloud Infrastructure,Engineering
+2026-05-02,Google Workspace,USD 1500,SaaS Subscriptions,Product
+2026-05-03,Vercel Host Services,USD 650,SaaS Subscriptions,Engineering
+2026-05-03,Netflix Personal,USD 15.99,Personal Expense,Marketing
+2026-05-04,Starbucks Team Meals,INR 3800,Meals & Catering,Sales
+2026-05-05,HDFC Business Banking,INR 118000,Finance & Banking,Finance
+2026-05-06,Slack Communication,USD 1800,SaaS Subscriptions,Product
+2026-05-07,Uber Business Travel,INR 4200,Travel & Transport,Sales
+2026-05-08,Github Team Accounts,USD 800,SaaS Subscriptions,Engineering
+2026-05-09,Amazon Retail Purchase,INR 14500,Personal Expense,Customer Success
+2026-05-10,AWS Cloud Infrastructure,USD 13500,Cloud Infrastructure,Engineering
+2026-05-11,Vercel Host Services,USD 650,SaaS Subscriptions,Engineering
+2026-05-12,Figma Design Licenses,USD 1400,SaaS Subscriptions,Design
+2026-05-13,Hotel Grand Residency,INR 72000,Travel & Transport,Business Development
+2026-05-14,Team Dinner Banquet,INR 22500,Meals & Catering,Product
+2026-05-15,Swiggy Catering Services,INR 11400,Meals & Catering,Data Science
+2026-05-16,Indigo Airlines Travel,INR 28000,Travel & Transport,Sales
+2026-05-17,Spotify Personal,INR 179,Personal Expense,Product
+2026-05-18,Google Cloud Platform,USD 9800,Cloud Infrastructure,Engineering
+2026-05-19,Apple Store Laptops,INR 390000,Hardware & Equipment,Engineering
+2026-05-20,Salesforce Enterprise CRM,USD 11000,SaaS Subscriptions,Sales
+2026-05-21,OpenAI API Tokens,USD 7800,Cloud Infrastructure,Data Science
+2026-05-22,WeWork Shared Desks,INR 180000,Travel & Transport,Operations
+2026-05-23,Law Office Consultants,INR 250000,Miscellaneous,Legal
+2026-05-23,Law Office Consultants,INR 250000,Miscellaneous,Legal
+,Corrupt Date Entry,INR 45000,Meals & Catering,Finance
+2026-05-24,Swiggy Catering Services,EMPTY_AMOUNT,Meals & Catering,Data Science
+2026-05-25,,INR 95000,Miscellaneous,Operations
+2026-05-26,Uber Personal Cab,INR 450,Personal Expense,Legal
+2026-05-27,Office Stationary Depot,INR 12500,Miscellaneous,Operations
+2026-05-28,Mausam Restaurant Lunch,INR 6700,Meals & Catering,Marketing
+2026-05-29,Hubspot Marketing Suite,USD 3200,SaaS Subscriptions,Marketing
+2026-05-30,Courier Air Cargo,INR 8700,Travel & Transport,Operations

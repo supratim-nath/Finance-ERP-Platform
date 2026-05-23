@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: 'Outfit', 'Inter', sans-serif;
+  --font-mono: 'Orbitron', 'Courier New', monospace;
+  --color-bg: #090D16;
+  --color-card: #0D1322;
+  --color-border: #1B253B;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: #F8FAFC;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.4); /* Indigo-500 with opacity */
+  color: white;
+}
+
+/* ============================================================
+   GLASS PANEL SYSTEM
+   ============================================================ */
+.glass-panel {
+  background: rgba(13, 19, 34, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(15, 22, 42, 0.9);
+  border-color: rgba(255, 255, 255, 0.09);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* ============================================================
+   DIGIT DISPLAY – FUTURISTIC MONO
+   ============================================================ */
+.digit-wide {
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.06);
+}
+
+/* ============================================================
+   KPI CARD ACCENT TOP BORDERS
+   ============================================================ */
+.card-glow-purple  { border-top-color: #C084FC !important; box-shadow: 0 -1px 12px -2px rgba(192,132,252,0.35); }
+.card-glow-green   { border-top-color: #34D399 !important; box-shadow: 0 -1px 12px -2px rgba(52,211,153,0.35); }
+.card-glow-red     { border-top-color: #F87171 !important; box-shadow: 0 -1px 12px -2px rgba(248,113,113,0.35); }
+.card-glow-yellow  { border-top-color: #FBBF24 !important; box-shadow: 0 -1px 12px -2px rgba(251,191,36,0.35); }
+.card-glow-orange  { border-top-color: #FB923C !important; box-shadow: 0 -1px 12px -2px rgba(251,146,60,0.35); }
+.card-glow-pink    { border-top-color: #F472B6 !important; box-shadow: 0 -1px 12px -2px rgba(244,114,182,0.35); }
+.card-glow-cyan    { border-top-color: #22D3EE !important; box-shadow: 0 -1px 12px -2px rgba(34,211,238,0.35); }
+.card-glow-amber   { border-top-color: #F59E0B !important; box-shadow: 0 -1px 12px -2px rgba(245,158,11,0.35); }
+
+/* ============================================================
+   CUSTOM SCROLLBARS
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090D16;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1E2D42;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2E4060;
+}
+
+/* ============================================================
+   NAVIGATION ACTIVE INDICATOR GLOW
+   ============================================================ */
+.nav-active-glow {
+  position: relative;
+}
+.nav-active-glow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(180deg, #818CF8, #C084FC);
+  box-shadow: 0 0 10px rgba(192, 132, 252, 0.6);
+}
+
+/* ============================================================
+   PREMIUM GRADIENT TEXT
+   ============================================================ */
+.gradient-text {
+  background: linear-gradient(135deg, #818CF8 0%, #C084FC 50%, #22D3EE 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   PULSE DOT INDICATOR
+   ============================================================ */
+.pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: relative;
+}
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  opacity: 0;
+  animation: ping 1.5s ease-in-out infinite;
+}
+@keyframes ping {
+  0% { opacity: 0.7; transform: scale(0.9); }
+  75%, 100% { opacity: 0; transform: scale(1.6); }
+}
+
+/* ============================================================
+   SHIMMER LOADING SKELETON
+   ============================================================ */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.03) 0%,
+    rgba(255,255,255,0.08) 50%,
+    rgba(255,255,255,0.03) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ============================================================
+   SIDEBAR BRAND GRADIENT
+   ============================================================ */
+.brand-gradient {
+  background: linear-gradient(135deg, #818CF8 0%, #A78BFA 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   TABLE HOVER ROW GLOW
+   ============================================================ */
+.table-row-hover:hover {
+  background: rgba(99, 102, 241, 0.04) !important;
+  box-shadow: inset 3px 0 0 rgba(99, 102, 241, 0.5);
+}
+
+/* ============================================================
+   STATUS BADGE ANIMATIONS
+   ============================================================ */
+.status-high-risk {
+  animation: statusPulse 2s ease-in-out infinite;
+}
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ============================================================
+   INPUT FOCUS GLOW
+   ============================================================ */
+input:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* ============================================================
+   SMOOTH PAGE TRANSITIONS
+   ============================================================ */
+.animate-fadeIn {
+  animation: fadeIn 0.35s ease-out both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.4s ease-out both;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s ease-out both;
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ============================================================
+   EXECUTIVE PDF PRINT LAYOUT
+   ============================================================ */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: 'Inter', sans-serif !important;
+  }
+  aside,
+  .print\:hidden,
+  button,
+  header {
+    display: none !important;
+  }
+  main {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .glass-panel {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .text-white, .text-slate-100, .text-slate-200,
+  .text-slate-300, .text-slate-400, .text-slate-500 {
+    color: #1e293b !important;
+  }
+  .text-indigo-400, .text-indigo-300 {
+    color: #4f46e5 !important;
+  }
+  .digit-wide {
+    text-shadow: none !important;
+    color: #0f172a !important;
+    font-family: monospace !important;
+  }
+}
