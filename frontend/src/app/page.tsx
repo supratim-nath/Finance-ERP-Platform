@@ -287,8 +287,8 @@ export default function FinanceApp() {
         return await fetch(`${API_URL}/upload`, { method: 'POST', body: fd });
       } catch {
         // Backend may be waking up (Render free tier cold start) — wait 4s and retry once
-        setUploadFeedback('Backend is warming up, retrying...');
-        await new Promise(r => setTimeout(r, 4000));
+        setUploadFeedback('Backend is warming up, retrying in a moment...');
+        await new Promise(r => setTimeout(r, 8000));
         return await fetch(`${API_URL}/upload`, { method: 'POST', body: fd });
       }
     };
