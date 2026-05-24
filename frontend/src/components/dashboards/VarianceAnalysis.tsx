@@ -1,5 +1,7 @@
 'use client';
 
+const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://finance-erp-platform.onrender.com').replace(/\/$/, '');
+
 import React, { useEffect, useState } from 'react';
 import { useFinanceStore } from '../../store/useFinanceStore';
 import { AlertCircle, CheckCircle2, TrendingDown, TrendingUp } from 'lucide-react';
@@ -22,7 +24,7 @@ export const VarianceAnalysis = () => {
     if (!data || data.length === 0) return;
     
     setIsLoading(true);
-    fetch('http://localhost:8000/variance')
+    fetch(`${API_URL}/variance`)
       .then(res => res.json())
       .then(resData => {
         if (Array.isArray(resData)) {

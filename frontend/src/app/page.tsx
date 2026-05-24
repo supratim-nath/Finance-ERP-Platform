@@ -1,6 +1,6 @@
 'use client';
 
-const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000').replace(/\/$/, '');
+const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://finance-erp-platform.onrender.com').replace(/\/$/, '');
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useFinanceStore } from '../store/useFinanceStore';
