@@ -10,8 +10,44 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from engine import ExpenseValidator
 from predictor import FinancePredictor
+import json
+from fastapi.responses import JSONResponse
 
-app = FastAPI()
+def sanitize_for_json(data: Any) -> Any:
+    if isinstance(data, dict):
+        return {k: sanitize_for_json(v) for k, v in data.items()}
+    elif isinstance(data, (list, tuple, set)):
+        return [sanitize_for_json(x) for x in data]
+    elif isinstance(data, (np.integer, np.int64, np.int32, np.int16, np.int8)):
+        return int(data)
+    elif isinstance(data, (np.floating, np.float64, np.float32, np.float16)):
+        if np.isnan(data) or np.isinf(data):
+            return None
+        return float(data)
+    elif isinstance(data, (np.bool_)):
+        return bool(data)
+    elif isinstance(data, np.ndarray):
+        return sanitize_for_json(data.tolist())
+    elif isinstance(data, float) and (np.isnan(data) or np.isinf(data)):
+        return None
+    elif isinstance(data, (datetime, timedelta)):
+        return str(data)
+    elif data is pd.NA or data is pd.NaT:
+        return None
+    else:
+        return data
+
+class CustomJSONResponse(JSONResponse):
+    def render(self, content: Any) -> bytes:
+        return json.dumps(
+            sanitize_for_json(content),
+            ensure_ascii=False,
+            allow_nan=False,
+            indent=None,
+            separators=(",", ":"),
+        ).encode("utf-8")
+
+app = FastAPI(default_response_class=CustomJSONResponse)
 
 @app.get('/')
 async def root():

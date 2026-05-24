@@ -384,10 +384,10 @@ class ExpenseValidator:
         self.find_duplicates()
         self.find_personal_expenses()
         
-        # Make lists of critical & warning unique
-        self.quality_report['critical'] = list(set(self.quality_report['critical']))
-        self.quality_report['warnings'] = list(set(self.quality_report['warnings']))
-        self.quality_report['info'] = list(set(self.quality_report['info']))
+        # Make lists of critical, warnings & info unique and convert to standard Python ints
+        self.quality_report['critical'] = [int(x) for x in set(self.quality_report['critical'])]
+        self.quality_report['warnings'] = [int(x) for x in set(self.quality_report['warnings'])]
+        self.quality_report['info'] = [int(x) for x in set(self.quality_report['info'])]
         
         return self.quality_report
 
