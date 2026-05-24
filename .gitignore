@@ -2,7 +2,6 @@
 node_modules/
 jspm_packages/
 web_modules/
-.env.production/
 # Next.js build and cache
 .next/
 out/
@@ -24,12 +23,13 @@ venv/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Environment variables
-.env
+# Environment variables (local secrets - never commit these)
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+# Allow .env.production to be committed (contains public API URLs, not secrets)
+!.env.production
 
 # Debug and system logs
 npm-debug.log*
