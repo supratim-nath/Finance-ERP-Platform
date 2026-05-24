@@ -1,6 +1,9 @@
 'use client';
 
-const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://finance-erp-platform.onrender.com').replace(/\/$/, '');
+// Hardcoded production backend URL — always points to Render regardless of env vars
+const RENDER_URL = 'https://finance-erp-platform.onrender.com';
+const API_URL = (process.env.NEXT_PUBLIC_API_URL || RENDER_URL).replace(/\/$/, '');
+
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useFinanceStore } from '../store/useFinanceStore';
@@ -242,26 +245,30 @@ export default function FinanceApp() {
       sessionStorage.removeItem('ledger-uploaded');
     } catch { /* noop */ }
 
-    // 2. Wipe the backend and clear the local store state to ensure a pristine start
-    const cleanReset = async () => {
+    // 2. Set mounted immediately — never block UI on backend availability
+    setData([]);
+    setMetrics(null);
+    setQualityIssues([]);
+    clearFilters();
+    setActiveTab('Upload');
+    setMounted(true);
+
+    // 3. Reset backend in background (non-blocking) + wake up Render free tier
+    const wakeAndReset = async () => {
       try {
+        // Silent ping to wake Render free tier (it sleeps after 15min inactivity)
+        await fetch(`${API_URL}/`, { method: 'GET' });
+        // Then wipe backend state
         await fetch(`${API_URL}/reset`, { method: 'POST' });
       } catch (e) {
-        console.error('Failed to reset backend database:', e);
+        // Backend cold start — silently ignore, user can still upload
+        console.warn('Backend warming up:', e);
       }
-      
-      // Clear store states
-      setData([]);
-      setMetrics(null);
-      setQualityIssues([]);
-      clearFilters();
-      setActiveTab('Upload');
-      setMounted(true);
     };
-
-    cleanReset();
+    wakeAndReset();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   const handleRefresh = async () => { setIsRefreshing(true); await fetchAll(); setIsRefreshing(false); };
 
@@ -273,8 +280,21 @@ export default function FinanceApp() {
     setUploadFeedback(null);
     const fd = new FormData();
     fd.append('file', file);
+
+    // Helper: try the upload, with one retry if backend is cold-starting
+    const attemptUpload = async (): Promise<Response> => {
+      try {
+        return await fetch(`${API_URL}/upload`, { method: 'POST', body: fd });
+      } catch {
+        // Backend may be waking up (Render free tier cold start) — wait 4s and retry once
+        setUploadFeedback('Backend is warming up, retrying...');
+        await new Promise(r => setTimeout(r, 4000));
+        return await fetch(`${API_URL}/upload`, { method: 'POST', body: fd });
+      }
+    };
+
     try {
-      const res = await fetch(`${API_URL}/upload`, { method: 'POST', body: fd });
+      const res = await attemptUpload();
       if (!res.ok) { const j = await res.json().catch(() => ({})); throw new Error(j?.detail || 'Upload failed'); }
       const result = await res.json();
       setUploadFeedback(`Validated ${result.row_count} transaction rows.`);
@@ -283,12 +303,18 @@ export default function FinanceApp() {
       setShowNewUpload(false);
       setActiveTab('Dashboard');
     } catch (err: any) {
-      alert(err.message || 'Ledger upload failed.');
+      const msg = err.message || '';
+      if (msg.includes('fetch') || msg.toLowerCase().includes('network')) {
+        alert('Could not reach the backend server. Please wait 30 seconds for it to wake up, then try again.\n\nBackend URL: ' + API_URL);
+      } else {
+        alert(msg || 'Ledger upload failed.');
+      }
     } finally {
       setUploading(false);
       e.target.value = '';
     }
   };
+
 
 
 
